@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Browser Environment Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease;
+        }
+
+        header {
+            background-color: #222;
+            color: white;
+            padding: 20px;
+        }
+
+        section {
+            padding: 20px;
+            margin: 15px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 8px;
+        }
+
+        h2 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 5px;
+        }
+
+        button {
+            padding: 8px 12px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .info-box {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Profile Information</h1>
+    <p><strong>Name:</strong> Joram P. Saba</p>
+    <p><strong>Sex:</strong> Male </p>
+    <p><strong>Address:</strong> Panagan Tigaon Camarines Sur</p>
+    <p><strong>Course/Year/Section:</strong> BSIT 2D</p>
+    <p><strong>School:</strong> Partido State university</p>
+    <p><strong>Semester & AY:</strong> 2nd Semester AY 2025-2026</p>
+    <p><strong>Subject:</strong> IT PF2 - Web Systems and Technologies</p>
+    <p><strong>Instructor:</strong> Arjay F. Abio</p>
+</header>
+
+<section>
+    <h2>Part A: Browser Information</h2>
+    <div class="info-box" id="browserInfo"></div>
+</section>
+
+<section>
+    <h2>Part B: Page Information & Controls</h2>
+    <p><strong>Current URL:</strong> <span id="currentURL"></span></p>
+    <p><strong>Hostname:</strong> <span id="hostname"></span></p>
+    <p><strong>Page Title:</strong> <span id="pageTitle"></span></p>
+
+    <button onclick="changeTitle()">Change Page Title</button>
+</section>
+
+<section>
+    <h2>Part C: Navigation Controls</h2>
+    <button onclick="reloadPage()">Reload Page</button>
+    <button onclick="redirectPage()">Go to Youtube</button>
+    <button onclick="goBack()">Back</button>
+    <button onclick="goForward()">Forward</button>
+</section>
+
+<script>
+    // ============================
+    // Part A: Display Browser Info
+    // ============================
+
+    function displayBrowserInfo() {
+        let info = `
+            Browser: ${navigator.appName} ${navigator.appVersion} <br>
+            Platform (OS): ${navigator.platform} <br>
+            Java Enabled: ${navigator.javaEnabled()} <br>
+            Screen Resolution: ${screen.width} x ${screen.height} <br>
+            Available Screen Size: ${screen.availWidth} x ${screen.availHeight} <br>
+            Color Depth: ${screen.colorDepth}
+        `;
+        document.getElementById("browserInfo").innerHTML = info;
+    }
+
+    // ===================================
+    // Part B: Page Info & Title Changing
+    // ===================================
+
+    function displayPageInfo() {
+        document.getElementById("currentURL").textContent = location.href;
+        document.getElementById("hostname").textContent = location.hostname;
+        document.getElementById("pageTitle").textContent = document.title;
+    }
+
+    function changeTitle() {
+        let newTitle = prompt("Enter new page title:");
+        if (newTitle) {
+            document.title = newTitle;
+            displayPageInfo();
+        }
+    }
+
+    // ============================
+    // Part C: Navigation Controls
+    // ============================
+
+    function reloadPage() {
+        location.reload();
+    }
+
+    function redirectPage() {
+        location.href = "https://www.youtube.com";
+    }
+
+    function goBack() {
+        history.back();
+    }
+
+    function goForward() {
+        history.forward();
+    }
+
+    // ======================================
+    // Part D: Dynamic Background by Screen
+    // ======================================
+
+    function changeBackgroundColor() {
+        let width = window.innerWidth;
+
+        if (width < 600) {
+            document.body.style.backgroundColor = "blue";
+        } else if (width >= 600 && width <= 991) {
+            document.body.style.backgroundColor = "green";
+        } else {
+            document.body.style.backgroundColor = "orange";
+        }
+    }
+
+    // Run functions on page load
+    window.onload = function () {
+        displayBrowserInfo();
+        displayPageInfo();
+        changeBackgroundColor();
+    };
+
+    // Run background change on resize
+    window.onresize = changeBackgroundColor;
+
+</script>
+
+</body>
+</html>
